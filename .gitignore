@@ -1,0 +1,23 @@
+# node_modules
+node_modules/
+dist/
+
+# Java
+*.class
+*.jar
+*.war
+*.iml
+/build/
+.gradle/
+.idea/
+out/
+!gradle/wrapper/gradle-wrapper.jar
+
+# OS
+.DS_Store
+
+# Logs
+*.log
+
+# Env
+.env

@@ -1,8 +1,8 @@
 // ✅ 사용 플러그인 정의
 plugins {
 	java // 자바 프로젝트로 설정 (필수)
-	id("org.springframework.boot") version "3.5.3" // Spring Boot 플러그인 (앱 실행 및 패키징 지원)
-	id("io.spring.dependency-management") version "1.1.7" // BOM 기반 의존성 버전 일괄 관리
+	id("org.springframework.boot") version "3.2.5" // Spring Boot 플러그인 (앱 실행 및 패키징 지원)
+	id("io.spring.dependency-management") version "1.1.4" // BOM 기반 의존성 버전 일괄 관리
 }
 
 group = "com.hwv1"                   // 프로젝트 패키지 네임 기반 그룹명 (예: com.hwv1.todo)
@@ -34,6 +34,7 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa") // JPA (Hibernate 포함) + 트랜잭션 등
 	implementation("org.springframework.boot:spring-boot-starter-web")      // Web MVC, REST API, 내장 Tomcat
 	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.5.0") // openapi
+	implementation("org.hibernate.validator:hibernate-validator")
 
 	// ✅ lombok 설정
 	compileOnly("org.projectlombok:lombok")                // 컴파일 전용 (코드에는 포함되지 않음)

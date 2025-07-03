@@ -22,3 +22,6 @@ logging:
   level:
     org.springdoc: DEBUG
     org.springframework.web: DEBUG
+
+jwt:
+  secret: MY_SECRET_KEY_256BIT_STRING_FOR_TODO_APP

@@ -1,4 +1,4 @@
-package com.hwv1.todo.contoroller;
+package com.hwv1.todo.controller;
 
 import com.hwv1.todo.dto.TodoRequest;
 import com.hwv1.todo.dto.TodoResponse;

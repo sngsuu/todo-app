@@ -30,28 +30,39 @@ repositories {
 
 // ✅ 프로젝트에서 사용할 라이브러리 정의
 dependencies {
-	// ✅ 핵심 Spring 기능들
+	// 핵심 Spring 기능들
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa") // JPA (Hibernate 포함) + 트랜잭션 등
 	implementation("org.springframework.boot:spring-boot-starter-web")      // Web MVC, REST API, 내장 Tomcat
 	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.5.0") // openapi
 	implementation("org.hibernate.validator:hibernate-validator")
 
-	// ✅ lombok 설정
+	// Spring Security (기본 인증 및 인가)
+	implementation("org.springframework.boot:spring-boot-starter-security")
+
+	// JJWT - JSON Web Token (토큰 생성/파싱용)
+	implementation("io.jsonwebtoken:jjwt-api:0.11.5")
+	runtimeOnly("io.jsonwebtoken:jjwt-impl:0.11.5")
+	runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.11.5") // jackson 사용 시 필수
+
+	// PasswordEncoder (Spring Boot 3 이상이면 자동 포함되지만 명시 가능)
+	implementation("org.springframework.security:spring-security-crypto")
+
+	// lombok 설정
 	compileOnly("org.projectlombok:lombok")                // 컴파일 전용 (코드에는 포함되지 않음)
 	annotationProcessor("org.projectlombok:lombok")        // 컴파일 타임에 lombok 처리
 
-	// ✅ 개발 편의 도구
+	// 개발 편의 도구
 	developmentOnly("org.springframework.boot:spring-boot-devtools") // Live reload, 빠른 재시작 등
 
-	// ✅ 실행 시 사용할 내장 DB
+	// 실행 시 사용할 내장 DB
 	runtimeOnly("com.h2database:h2") // 메모리 기반 H2 DB (테스트 및 개발용)
 
-	// ✅ 테스트 관련 의존성
+	// 테스트 관련 의존성
 	testImplementation("org.springframework.boot:spring-boot-starter-test") // JUnit + Mockito + AssertJ 포함
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher") // JUnit 플랫폼 런처 (IDE 통합 실행)
 }
 
-// ✅ 테스트 설정: JUnit 5 플랫폼 사용 명시
+// 테스트 설정: JUnit 5 플랫폼 사용 명시
 tasks.withType<Test> {
 	useJUnitPlatform()
 }

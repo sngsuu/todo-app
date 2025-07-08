@@ -1,5 +1,6 @@
 package com.hwv1.todo.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -20,4 +21,9 @@ public class Todo {
 
     private String title;     // 할 일 제목
     private boolean completed; // 완료 여부
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    @JsonIgnore
+    private User user; // ✅ 작성자와 연관관계 추가
 }

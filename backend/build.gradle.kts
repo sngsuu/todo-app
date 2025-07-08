@@ -40,9 +40,12 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-security")
 
 	// JJWT - JSON Web Token (토큰 생성/파싱용)
-	implementation("io.jsonwebtoken:jjwt-api:0.11.5")
-	runtimeOnly("io.jsonwebtoken:jjwt-impl:0.11.5")
-	runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.11.5") // jackson 사용 시 필수
+//	implementation("io.jsonwebtoken:jjwt-api:0.11.5")
+//	runtimeOnly("io.jsonwebtoken:jjwt-impl:0.11.5")
+//	runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.11.5") // jackson 사용 시 필수
+
+	// auth0 - jwt
+	implementation("com.auth0:java-jwt:4.4.0")
 
 	// PasswordEncoder (Spring Boot 3 이상이면 자동 포함되지만 명시 가능)
 	implementation("org.springframework.security:spring-security-crypto")

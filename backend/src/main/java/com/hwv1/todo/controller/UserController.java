@@ -2,12 +2,16 @@ package com.hwv1.todo.controller;
 
 import com.hwv1.todo.dto.LoginRequest;
 import com.hwv1.todo.dto.SignupRequest;
+import com.hwv1.todo.dto.UserResponse;
 import com.hwv1.todo.entity.User;
+import com.hwv1.todo.exception.UnauthorizedException;
 import com.hwv1.todo.jwt.JwtUtil;
 import com.hwv1.todo.repository.UserRepository;
+import com.hwv1.todo.security.CustomUserDetails;
 import com.hwv1.todo.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -43,4 +47,15 @@ public class UserController {
         String token = jwtUtil.createToken(user.getUsername());
         return ResponseEntity.ok(Map.of("token", token));
     }
+
+    @GetMapping("/me")
+    public ResponseEntity<UserResponse> getCurrentUser(@AuthenticationPrincipal CustomUserDetails userDetails) {
+        if (userDetails == null) {
+            throw new UnauthorizedException("로그인이 필요합니다");
+        }
+
+        UserResponse response = new UserResponse(userDetails.getId(), userDetails.getUsername());
+        return ResponseEntity.ok(response);
+    }
+
 }

@@ -2,14 +2,12 @@ package com.hwv1.todo.service.impl;
 
 import com.hwv1.todo.entity.User;
 import com.hwv1.todo.repository.UserRepository;
+import com.hwv1.todo.security.CustomUserDetails;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 /**
  * JWT 인증 시 사용자 정보를 불러오기 위한 UserDetailsService 구현체입니다.
@@ -25,11 +23,6 @@ public class CustomUserDetailsServiceImpl implements UserDetailsService {
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("사용자를 찾을 수 없습니다: " + username));
 
-        // UserDetails 구현체로 변환해서 반환
-        return new org.springframework.security.core.userdetails.User(
-                user.getUsername(),
-                user.getPassword(),
-                List.of(new SimpleGrantedAuthority("ROLE_USER"))
-        );
+        return new CustomUserDetails(user);
     }
 }

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <!-- 로그 패턴 정의 -->
+    <property name="LOG_PATTERN"
+              value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%highlight(%-5level)] [%cyan(%thread)] %green(%logger{36}) - %msg%n"/>
+
+    <!-- 콘솔 출력용 Appender -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <!-- 로그 레벨 설정 (필요시 DEBUG로 변경 가능) -->
+    <root level="INFO">
+        <appender-ref ref="STDOUT" />
+    </root>
+
+    <!-- 패키지별 레벨 지정 예시 -->
+    <!-- <logger name="org.springframework" level="WARN"/> -->
+    <!-- <logger name="com.hwv1.todo" level="DEBUG"/> -->
+
+</configuration>

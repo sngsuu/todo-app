@@ -1,29 +1,34 @@
+// src/App.tsx
+import { useAuth } from './hooks/useAuth';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import PrivateRoute from './components/PrivateRoute';
+import { Toaster } from 'react-hot-toast';
 import TodoList from './pages/TodoList';
 import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
-import { Toaster } from 'react-hot-toast';
+import PrivateRoute from './components/PrivateRoute';
+import { createContext } from 'react';
+
+export const AuthContext = createContext(null);
 
 function App() {
-  const isLoggedIn = !!localStorage.getItem('token'); // 간단한 로그인 체크
+  const { user, checked } = useAuth();
+
+  if (!checked) {
+    return <p className="text-center mt-10 text-gray-600">⏳ 인증 상태 확인 중...</p>;
+  }
 
   return (
-    <>
+    <AuthContext.Provider value={user}>
       <Router>
         <Routes>
-          <Route path="/" element={<Navigate to={isLoggedIn ? "/todo" : "/login"} />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/signup" element={<SignupPage />} />
-          <Route path="/todo" element={
-            <PrivateRoute>
-              <TodoList />
-            </PrivateRoute>
-          } />
+          <Route path="/login" element={user ? <Navigate to="/todo" /> : <LoginPage />} />
+          <Route path="/signup" element={user ? <Navigate to="/todo" /> : <SignupPage />} />
+          <Route path="/todo" element={<PrivateRoute><TodoList /></PrivateRoute>} />
+          <Route path="*" element={<Navigate to={user ? "/todo" : "/login"} />} />
         </Routes>
       </Router>
       <Toaster position="top-center" reverseOrder={false} />
-    </>
+    </AuthContext.Provider>
   );
 }
 

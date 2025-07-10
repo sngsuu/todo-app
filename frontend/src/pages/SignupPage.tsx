@@ -11,7 +11,7 @@ function SignupPage() {
 
   const handleSignup = async () => {
     try {
-        await signup(username, password);
+        await signup({username, password});
         toast.success('회원가입 성공!');
         navigate('/login');
     } catch (e) {

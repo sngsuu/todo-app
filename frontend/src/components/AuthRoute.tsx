@@ -6,13 +6,13 @@ interface Props {
   children: ReactElement;
 }
 
-const PrivateRoute = ({ children }: Props) => {
+const AuthRoute = ({ children }: Props) => {
   const { isAuthenticated, checked } = useAuth();
 
   if (!checked) return <p>⏳ 로그인 상태 확인 중...</p>;
-  if (!isAuthenticated) return <Navigate to="/login" replace />;
+  if (isAuthenticated) return <Navigate to="/todo" replace />;
 
   return children;
 };
 
-export default PrivateRoute;
+export default AuthRoute;

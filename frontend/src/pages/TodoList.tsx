@@ -17,7 +17,7 @@ export default function TodoList() {
     error,
   } = useQuery({ queryKey: ['todos'], queryFn: getTodos })
 
-  const todos = data?.data || []
+  const todos = data || []
   const total = todos.length
   const completedCount = todos.filter((todo: any) => todo.completed).length
 
@@ -25,10 +25,10 @@ export default function TodoList() {
   type Filter = 'all' | 'completed' | 'incomplete'
   const [filter, setFilter] = useState<Filter>('all')
 
-  const filteredTodos = data?.data.filter((todo: any) => {
+  const filteredTodos = todos.filter((todo: any) => {
     if (filter === 'completed') return todo.completed
     if (filter === 'incomplete') return !todo.completed
-    return true // 'all'
+    return true
   })
 
   // [이벤트 핸들러]
